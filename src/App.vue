@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
+import { defineComponent, reactive, ref, watch } from 'vue';
 import EmptyState from './components/EmptyState.vue';
 import TaskItem from './components/TaskItem.vue';
 import NewTask from './components/NewTask.vue';
@@ -42,6 +42,27 @@ export default defineComponent({
     const tasks = reactive<Task[]>([]);
     const isAddingTask = ref(false);
     let nextId = 1;
+
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      try {
+        const parsedTasks = JSON.parse(storedTasks) as Task[];
+        tasks.push(...parsedTasks);
+
+        nextId = parsedTasks.reduce((maxId, task) => Math.max(maxId, task.id), 0) + 1;
+      } catch (e) {
+        console.error('Ошибка при парсинге задач из localStorage', e);
+        localStorage.removeItem('tasks');
+      }
+    }
+
+     watch(
+      tasks,
+      (newTasks) => {
+        localStorage.setItem('tasks', JSON.stringify(newTasks));
+      },
+      { deep: true }
+    );
 
     const addTask = (text: string) => {
       tasks.push({ id: nextId++, text, completed: false });
