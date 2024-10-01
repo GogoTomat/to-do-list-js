@@ -29,3 +29,6 @@ button {
   height: 100%;
 }
 
+.task-text.completed {
+  text-decoration: line-through;
+}

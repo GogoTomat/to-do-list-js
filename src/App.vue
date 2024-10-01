@@ -14,7 +14,7 @@
     </div>
     <NewTask v-if="isAddingTask" @add-task="addTask" @cancel="isAddingTask = false" />
     <button v-if="!isAddingTask" type="button" class="button-add" @click="isAddingTask = true">
-      <img src="./assets/crest.svg" alt="Add task">
+      <img src="./assets/crest.svg" alt="Add task" />
     </button>
   </div>
 </template>
@@ -49,14 +49,14 @@ export default defineComponent({
     };
 
     const deleteTask = (id: number) => {
-      const index = tasks.findIndex(task => task.id === id);
+      const index = tasks.findIndex((task) => task.id === id);
       if (index !== -1) {
         tasks.splice(index, 1);
       }
     };
 
     const toggleTask = (id: number) => {
-      const task = tasks.find(task => task.id === id);
+      const task = tasks.find((task) => task.id === id);
       if (task) {
         task.completed = !task.completed;
       }

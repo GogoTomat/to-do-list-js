@@ -1,38 +1,43 @@
 <template>
-    <div class="todo-item">
-      <label class="checkbox-container">
-        <input type="checkbox" class="done_checked" v-model="task.completed" @change="toggleTask">
-        <span class="checkmark"></span>
-      </label>
-      <p :class="['task-text', { 'completed': task.completed }]">{{ task.text }}</p>
-      <button type="button" class="button_delete" @click="deleteTask">
-        <img src="../assets/vue.svg" alt="Delete task">
-      </button>
-    </div>
-  </template>
+  <div class="todo-item">
+    <label class="checkbox-container">
+      <input
+        type="checkbox"
+        class="done_checked"
+        :checked="task.completed"
+        @change="toggleTask"
+      />
+      <span class="checkmark"></span>
+    </label>
+    <p :class="['task-text', { completed: task.completed }]">{{ task.text }}</p>
+    <button type="button" class="button_delete" @click="deleteTask">
+      <img src="../assets/crest.svg" alt="Delete task" />
+    </button>
+  </div>
+</template>
 
-  <script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-  export default defineComponent({
-    name: 'TaskItem',
-    props: {
-      task: {
-        type: Object,
-        required: true,
-      },
+export default defineComponent({
+  name: 'TaskItem',
+  props: {
+    task: {
+      type: Object,
+      required: true,
     },
-    emits: ['delete-task', 'toggle-task'],
-    methods: {
-      deleteTask() {
-        this.$emit('delete-task', this.task.id);
-      },
-      toggleTask() {
-        this.$emit('toggle-task', this.task.id);
-      },
+  },
+  emits: ['delete-task', 'toggle-task'],
+  methods: {
+    deleteTask() {
+      this.$emit('delete-task', this.task.id);
     },
-  });
-  </script>
+    toggleTask() {
+      this.$emit('toggle-task', this.task.id);
+    },
+  },
+});
+</script>
 
   <style scoped>
   .todo-item {

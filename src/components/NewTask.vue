@@ -18,7 +18,7 @@
   export default defineComponent({
     name: 'NewTask',
     emits: ['add-task', 'cancel'],
-    setup(props, { emit }) {
+    setup(__props, { emit }) {
       const taskText = ref('');
 
       const addTask = () => {
